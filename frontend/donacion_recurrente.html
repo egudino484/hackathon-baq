@@ -263,6 +263,48 @@
 
     <script>
 
+        // Agrega este código en la sección de scripts
+        let otpGenerado = null;
+        let emailUsuario = null;
+
+        function generarOTP() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        function mostrarModalOTP() {
+            const modalOTP = `
+        <div id="otpModal" class="modal">
+            <div class="modal-content">
+                <h2 class="text-xl font-bold text-center mb-4">Verificación OTP</h2>
+                <p class="text-sm text-gray-600 mb-4">Hemos enviado un código de 6 dígitos a: <span class="font-semibold">${emailUsuario}</span></p>
+                <input type="text" id="otpInput" 
+                       class="w-full p-2 border rounded-md text-center text-lg" 
+                       maxlength="6"
+                       placeholder="Ingresa tu código">
+                <p id="otpError" class="text-red-500 text-sm mt-2 hidden">Código incorrecto. Intenta nuevamente.</p>
+                <div class="flex justify-between mt-4">
+                    <button type="button" id="reenviarOTP" 
+                            class="px-4 py-2 text-blue-600 hover:text-blue-800">
+                        Reenviar código
+                    </button>
+                    <div>
+                        <button type="button" id="cancelarOTP" 
+                                class="px-4 py-2 border border-gray-300 rounded-md mr-2">
+                            Cancelar
+                        </button>
+                        <button type="button" id="validarOTP" 
+                                class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                            Validar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+            document.body.insertAdjacentHTML('beforeend', modalOTP);
+            document.getElementById('otpModal').style.display = 'flex';
+        }
+
         function cargarDatosDemo() {
             // Datos Personales
             document.getElementById('nombres-apellidos').value = 'María José Pérez González';
@@ -335,37 +377,65 @@
                 signatureInput.value = signaturePad.toDataURL();
                 document.getElementById('signatureModal').style.display = 'none';
 
-                // Obtener datos del formulario
-                const formData = {
-                    datosPersonales: {
-                        nombresApellidos: document.getElementById('nombres-apellidos').value,
-                        telefono: document.getElementById('telefono').value,
-                        fechaNacimiento: {
-                            dia: document.querySelector('input[placeholder="Día"]').value,
-                            mes: document.querySelector('input[placeholder="Mes"]').value,
-                            anio: document.querySelector('input[placeholder="Año"]').value
-                        },
-                        ubicacion: document.getElementById('ubicacion').value,
-                        identificacion: document.getElementById('identificacion').value,
-                        email: document.getElementById('email').value
-                    },
-                    datosBancarios: {
-                        banco: document.getElementById('tipo-banco').value,
-                        tipoCuenta: document.querySelector('input[name="tipo-cuenta"]:checked')?.value,
-                        numeroCuenta: document.getElementById('numero-cuenta').value,
-                        titularCuenta: document.getElementById('titular-cuenta').value,
-                        monto: document.querySelector('input[name="monto"]:checked')?.value
-                    },
-                    firma: signatureInput.value,
-                    fechaEnvio: new Date().toISOString()
-                };
+                // Obtener email del formulario
+                emailUsuario = document.getElementById('email').value;
 
-                // Mostrar en consola
-                console.log('Datos del formulario:', JSON.stringify(formData, null, 2));
+                // Generar y "enviar" OTP (simulación)
+                otpGenerado = generarOTP();
+                console.log(`OTP generado para ${emailUsuario}: ${otpGenerado}`); // Solo para pruebas
 
-                // Enviar formulario
-                alert('Formulario enviado correctamente');
-                currentForm.reset();
+                // Mostrar modal OTP
+                mostrarModalOTP();
+
+                // Manejar eventos del modal OTP
+                document.getElementById('validarOTP').addEventListener('click', () => {
+                    const otpIngresado = document.getElementById('otpInput').value;
+                    const errorElement = document.getElementById('otpError');
+
+                    if (otpIngresado === otpGenerado) {
+                        document.getElementById('otpModal').remove();
+                        alert('Formulario enviado correctamente');
+                        // Construir JSON con datos del formulario
+                        const formData = {
+                            datosPersonales: {
+                                nombresApellidos: document.getElementById('nombres-apellidos').value,
+                                telefono: document.getElementById('telefono').value,
+                                fechaNacimiento: {
+                                    dia: document.querySelector('input[placeholder="Día"]').value,
+                                    mes: document.querySelector('input[placeholder="Mes"]').value,
+                                    anio: document.querySelector('input[placeholder="Año"]').value
+                                },
+                                ubicacion: document.getElementById('ubicacion').value,
+                                identificacion: document.getElementById('identificacion').value,
+                                email: document.getElementById('email').value
+                            },
+                            datosBancarios: {
+                                banco: document.getElementById('tipo-banco').value,
+                                tipoCuenta: document.querySelector('input[name="tipo-cuenta"]:checked')?.value,
+                                numeroCuenta: document.getElementById('numero-cuenta').value,
+                                titularCuenta: document.getElementById('titular-cuenta').value,
+                                monto: document.querySelector('input[name="monto"]:checked')?.value
+                            },
+                            firma: document.getElementById('signature-recurrente').value,
+                            fechaEnvio: new Date().toISOString()
+                        };
+                        console.log('Datos del formulario:', JSON.stringify(formData, null, 2));
+                        currentForm.reset();
+                    } else {
+                        errorElement.classList.remove('hidden');
+                    }
+                });
+
+                document.getElementById('reenviarOTP').addEventListener('click', () => {
+                    otpGenerado = generarOTP();
+                    console.log(`Nuevo OTP generado: ${otpGenerado}`); // Solo para pruebas
+                    document.getElementById('otpError').classList.add('hidden');
+                    document.getElementById('otpInput').value = '';
+                });
+
+                document.getElementById('cancelarOTP').addEventListener('click', () => {
+                    document.getElementById('otpModal').remove();
+                });
             });
 
         });
