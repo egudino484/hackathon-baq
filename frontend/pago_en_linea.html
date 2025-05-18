@@ -7,6 +7,58 @@
   <link href="styles.css" rel="stylesheet">
   <title>Donación</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+     .thank-you-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .thank-you-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        text-align: center;
+        transform: scale(0.8);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        max-width: 400px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .thank-you-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .thank-you-overlay.active .thank-you-card {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    .checkmark {
+        font-size: 4rem;
+        color: #2D3576;
+        margin-bottom: 1rem;
+        transform: scale(0);
+        transition: all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    .thank-you-overlay.active .checkmark {
+        transform: scale(1);
+    }
+  </style>
 
 </head>
 
@@ -242,6 +294,26 @@
     </div>
   </div>
 
+  <div class="thank-you-overlay" id="thankYouOverlay">
+    <div class="thank-you-card">
+        <div class="checkmark">✓</div>
+        <h2 class="text-2xl font-bold text-[#2D3576] mb-4">¡Gracias por ser parte de esto!</h2>
+        <p class="text-gray-600 mb-6">Tu apoyo marca una gran diferencia.</p>
+        <button 
+            onclick="openShareModal(); closeThankYou()"
+            class="bg-[#E1783C] hover:bg-[#c7632e] text-white font-semibold py-2 px-6 rounded-full transition-colors"
+        >
+            Compartir
+        </button>
+        <button 
+            onclick="closeThankYou()"
+            class="mt-4 text-[#2D3576] hover:text-[#1c224d] font-medium block mx-auto"
+        >
+            Cerrar
+        </button>
+    </div>
+</div>
+
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -328,12 +400,23 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      alert("¡Gracias por tu donación!");
+      showThankYou();
       form.reset();
     });
 
+     function showThankYou() {
+        const overlay = document.getElementById('thankYouOverlay');
+        overlay.classList.add('active');
+    }
+
+    function closeThankYou() {
+        const overlay = document.getElementById('thankYouOverlay');
+        overlay.classList.remove('active');
+    }
+
     // Función para abrir el modal
     function openShareModal() {
+      closeThankYou();
       document.getElementById('shareModal').classList.remove('hidden');
       setupSocialLinks();
     }
