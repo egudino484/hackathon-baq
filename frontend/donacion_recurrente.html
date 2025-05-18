@@ -417,7 +417,31 @@
                                 monto: document.querySelector('input[name="monto"]:checked')?.value
                             },
                             firma: document.getElementById('signature-recurrente').value,
-                            fechaEnvio: new Date().toISOString()
+                            fechaEnvio: new Date().toISOString(),
+                            metadata: {
+                                auditTrail: {
+                                    documentHash: "sha256:9f86d08...",
+                                    timestampEnvio: "2025-05-18T17:30:00Z",
+                                    timestampFirma: "2025-05-18T17:33:07Z",
+                                    acciones: [
+                                        {
+                                            tipo: "Envío",
+                                            responsable: "juan.perez@empresa.com",
+                                            timestamp: "2025-05-18T17:30:00Z",
+                                            ip: "190.152.12.34",
+                                            geolocalizacion: "Quito, EC (-0.180653, -78.467834)",
+                                            dispositivo: "Chrome 120.0 / Windows 10"
+                                        },
+                                        {
+                                            tipo: "Firma",
+                                            responsable: "maria.gonzalez@cliente.com",
+                                            timestamp: "2025-05-18T17:33:07Z",
+                                            metodoAutenticacion: "OTP-Email",
+                                            codigoOTP: "*****"
+                                        }
+                                    ]
+                                }
+                            }
                         };
                         console.log('Datos del formulario:', JSON.stringify(formData, null, 2));
                         currentForm.reset();
