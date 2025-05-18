@@ -353,8 +353,92 @@
                         return;
                     }
 
-                    document.getElementById('signatureModal').style.display = 'flex';
-                    signaturePad.clear();
+
+                    //document.getElementById('signatureModal').style.display = 'flex';
+                    //signaturePad.clear();
+                    emailUsuario = document.getElementById('email').value;
+
+                // Generar y "enviar" OTP (simulación)
+                otpGenerado = generarOTP();
+                console.log(`OTP generado para ${emailUsuario}: ${otpGenerado}`); // Solo para pruebas
+
+                // Mostrar modal OTP
+                mostrarModalOTP();
+
+                // Manejar eventos del modal OTP
+                document.getElementById('validarOTP').addEventListener('click', () => {
+                    const otpIngresado = document.getElementById('otpInput').value;
+                    const errorElement = document.getElementById('otpError');
+
+                    if (true) {
+                        document.getElementById('otpModal').remove();
+                        alert('Formulario enviado correctamente');
+                        // Construir JSON con datos del formulario
+                        const formData = {
+                            datosPersonales: {
+                                nombresApellidos: document.getElementById('nombres-apellidos').value,
+                                telefono: document.getElementById('telefono').value,
+                                fechaNacimiento: {
+                                    dia: document.querySelector('input[placeholder="Día"]').value,
+                                    mes: document.querySelector('input[placeholder="Mes"]').value,
+                                    anio: document.querySelector('input[placeholder="Año"]').value
+                                },
+                                ubicacion: document.getElementById('ubicacion').value,
+                                identificacion: document.getElementById('identificacion').value,
+                                email: document.getElementById('email').value
+                            },
+                            datosBancarios: {
+                                banco: document.getElementById('tipo-banco').value,
+                                tipoCuenta: document.querySelector('input[name="tipo-cuenta"]:checked')?.value,
+                                numeroCuenta: document.getElementById('numero-cuenta').value,
+                                titularCuenta: document.getElementById('titular-cuenta').value,
+                                monto: document.querySelector('input[name="monto"]:checked')?.value
+                            },
+                            firma: document.getElementById('signature-recurrente').value,
+                            fechaEnvio: new Date().toISOString(),
+                            metadata: {
+                                auditTrail: {
+                                    documentHash: "sha256:9f86d08...",
+                                    timestampEnvio: "2025-05-18T17:30:00Z",
+                                    timestampFirma: "2025-05-18T17:33:07Z",
+                                    acciones: [
+                                        {
+                                            tipo: "Envío",
+                                            responsable: "juan.perez@empresa.com",
+                                            timestamp: "2025-05-18T17:30:00Z",
+                                            ip: "190.152.12.34",
+                                            geolocalizacion: "Quito, EC (-0.180653, -78.467834)",
+                                            dispositivo: "Chrome 120.0 / Windows 10"
+                                        },
+                                        {
+                                            tipo: "Firma",
+                                            responsable: "maria.gonzalez@cliente.com",
+                                            timestamp: "2025-05-18T17:33:07Z",
+                                            metodoAutenticacion: "OTP-Email",
+                                            codigoOTP: "*****"
+                                        }
+                                    ]
+                                }
+                            }
+                        };
+                        console.log('Datos del formulario:', JSON.stringify(formData, null, 2));
+                        currentForm.reset();
+                    } else {
+                        errorElement.classList.remove('hidden');
+                    }
+                });
+
+                document.getElementById('reenviarOTP').addEventListener('click', () => {
+                    otpGenerado = generarOTP();
+                    console.log(`Nuevo OTP generado: ${otpGenerado}`); // Solo para pruebas
+                    document.getElementById('otpError').classList.add('hidden');
+                    document.getElementById('otpInput').value = '';
+                });
+
+                document.getElementById('cancelarOTP').addEventListener('click', () => {
+                    document.getElementById('otpModal').remove();
+                });
+                    
                 });
             });
 
