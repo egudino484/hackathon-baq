@@ -1,60 +1,23 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mi Proyecto Solidario</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Mi Sitio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="styles.css" rel="stylesheet">
 </head>
-<body class="bg-white text-gray-800 font-sans">
+<body class="bg-gray-50">
+    <!-- Contenedor Navbar -->
+    <div id="navbar-container"></div>
 
-  <!-- Hero / Landing -->
-  <section class="text-center py-20 px-4 bg-blue-100">
-    <h1 class="text-4xl md:text-6xl font-bold mb-4">Ayudemos Juntos</h1>
-    <p class="text-lg md:text-xl mb-6 max-w-xl mx-auto">Tu donación puede marcar una gran diferencia. Únete a nuestra misión.</p>
-    <a href="#donar" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg">Donar Ahora</a>
-  </section>
+    <!-- Contenido Principal -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-6">Bienvenido</h1>
+        <p class="text-gray-600">Contenido de la página de inicio...</p>
+    </main>
 
-  <!-- Features -->
-  <section class="py-16 px-6 bg-white grid md:grid-cols-3 gap-8 text-center">
-    <div>
-      <h3 class="text-xl font-bold mb-2">Transparencia</h3>
-      <p>Publicamos cada gasto para que sepas exactamente cómo se usa tu dinero.</p>
-    </div>
-    <div>
-      <h3 class="text-xl font-bold mb-2">Impacto Real</h3>
-      <p>Tu ayuda llega directamente a quienes más lo necesitan.</p>
-    </div>
-    <div>
-      <h3 class="text-xl font-bold mb-2">Comunidad</h3>
-      <p>Somos miles de personas colaborando por un futuro mejor.</p>
-    </div>
-  </section>
-
-  <!-- Donaciones -->
-  <section id="donar" class="py-20 px-4 bg-gray-100 text-center">
-    <h2 class="text-3xl font-bold mb-4">Haz una Donación</h2>
-    <p class="mb-6">Selecciona un monto o ingresa uno personalizado</p>
-    <div class="flex flex-wrap justify-center gap-4 mb-6">
-      <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded">€10</button>
-      <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded">€25</button>
-      <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded">€50</button>
-    </div>
-    <div class="mb-4">
-      <input type="number" placeholder="Otro monto (€)" class="border p-2 rounded w-40 text-center" />
-    </div>
-    <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded text-lg">Donar</button>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-8 bg-blue-100 text-center">
-    <p class="mb-2">© 2025 Mi Proyecto Solidario</p>
-    <div class="flex justify-center gap-4 text-blue-700">
-      <a href="#">Facebook</a>
-      <a href="#">Instagram</a>
-      <a href="#">Contacto</a>
-    </div>
-  </footer>
-
+    <!-- Scripts -->
+    <script src="load-navbar.js"></script>
 </body>
 </html>

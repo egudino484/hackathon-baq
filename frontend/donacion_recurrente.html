@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Pago</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('https://www.baq.ec/wp-content/uploads/2025/05/wb-baq-headher-v1.webp');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+        }
+        .header-title {
+            color: #1a3e72;
+            border-bottom: 2px solid #e30613;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+        .btn-primary {
+            background-color: #e30613;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #c00511;
+        }
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .tab.active {
+            border-bottom-color: #e30613;
+            font-weight: 600;
+            color: #1a3e72;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .qr-code-placeholder {
+            width: 200px;
+            height: 200px;
+            background-color: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border: 1px dashed #9ca3af;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+    <div id="navbar-container"></div>
+    <div class="max-w-2xl w-full form-container my-8 p-8 rounded-lg shadow-xl">
+        <h1 class="text-2xl font-bold mb-6 header-title">SOLICITUD DE PAGO</h1>
+        
+        <!-- Pestañas de métodos de pago -->
+        <div class="flex border-b border-gray-200 mb-6">
+            <div class="tab active" data-tab="recurrente">Aporte Recurrente</div>
+            <div class="tab" data-tab="tarjeta">Tarjeta de Crédito</div>
+            <div class="tab" data-tab="qr">Código QR</div>
+        </div>
+        
+        <form class="space-y-8">
+            <!-- Contenido de pestaña: Aporte Recurrente -->
+            <div id="recurrente" class="tab-content active">
+                <!-- Sección de Datos Personales -->
+                <div class="border-b border-gray-200 pb-8">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Datos Personales</h2>
+                    
+                    <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6">
+                        <div>
+                            <label for="nombres-apellidos" class="block text-sm font-medium text-gray-700">Nombres y Apellidos *</label>
+                            <input type="text" id="nombres-apellidos" name="nombres-apellidos" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                        </div>
+                        
+                        <div>
+                            <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono *</label>
+                            <input type="tel" id="telefono" name="telefono" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Fecha de Nacimiento *</label>
+                            <div class="mt-1 grid grid-cols-3 gap-3">
+                                <input type="number" placeholder="Día" min="1" max="31" required class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                                <input type="number" placeholder="Mes" min="1" max="12" required class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                                <input type="number" placeholder="Año" min="1900" max="2100" required class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="ubicacion" class="block text-sm font-medium text-gray-700">Ubicación *</label>
+                            <input type="text" id="ubicacion" name="ubicacion" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                        </div>
+                        
+                        <div>
+                            <label for="identificacion" class="block text-sm font-medium text-gray-700">Identificación C.C. *</label>
+                            <input type="text" id="identificacion" name="identificacion" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico *</label>
+                            <input type="email" id="email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                        </div>
+                    </div>
+                    
+                    <p class="mt-4 text-xs text-gray-500 italic">*Toda la información registrada es confidencial y reservada.</p>
+                </div>
+                
+                <!-- Sección de Datos Bancarios -->
+                <div class="border-b border-gray-200 pb-8">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Datos Bancarios</h2>
+                    
+                    <div class="grid grid-cols-1 gap-y-6">
+                        <div>
+                            <label for="tipo-banco" class="block text-sm font-medium text-gray-700">Tipo de Banco *</label>
+                            <select id="tipo-banco" name="tipo-banco" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                                <option value="">Seleccione su banco</option>
+                                <option value="Banco Pichincha">Banco Pichincha</option>
+                                <option value="Banco de Guayaquil">Banco de Guayaquil</option>
+                                <option value="Produbanco">Produbanco</option>
+                                <option value="Banco del Pacífico">Banco del Pacífico</option>
+                                <option value="Banco Bolivariano">Banco Bolivariano</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Tipo de Cuenta *</label>
+                            <div class="mt-2 flex items-center space-x-4">
+                                <div class="flex items-center">
+                                    <input id="cuenta-corriente" name="tipo-cuenta" type="radio" value="corriente" required class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    <label for="cuenta-corriente" class="ml-2 block text-sm text-gray-700">Corriente</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="cuenta-ahorros" name="tipo-cuenta" type="radio" value="ahorros" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    <label for="cuenta-ahorros" class="ml-2 block text-sm text-gray-700">Ahorros</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="numero-cuenta" class="block text-sm font-medium text-gray-700">Número de Cuenta *</label>
+                            <input type="text" id="numero-cuenta" name="numero-cuenta" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                        </div>
+                        
+                        <div>
+                            <label for="titular-cuenta" class="block text-sm font-medium text-gray-700">Nombre de Titular de la Cuenta *</label>
+                            <input type="text" id="titular-cuenta" name="titular-cuenta" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Monto *</label>
+                            <div class="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                                <div class="flex items-center">
+                                    <input id="monto-5" name="monto" type="radio" value="5" required class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    <label for="monto-5" class="ml-2 block text-sm text-gray-700">$5</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="monto-10" name="monto" type="radio" value="10" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    <label for="monto-10" class="ml-2 block text-sm text-gray-700">$10</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="monto-20" name="monto" type="radio" value="20" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    <label for="monto-20" class="ml-2 block text-sm text-gray-700">$20</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input id="monto-30" name="monto" type="radio" value="30" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                    <label for="monto-30" class="ml-2 block text-sm text-gray-700">$30</label>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center">
+                                <input id="monto-otro" name="monto" type="radio" value="otro" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <label for="monto-otro" class="ml-2 block text-sm text-gray-700">Otro monto: $</label>
+                                <input type="number" id="monto-personalizado" name="monto-personalizado" disabled class="ml-2 w-24 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 space-y-4">
+                        <p class="text-xs text-gray-500 italic">*Al proporcionar sus datos, usted acepta que serán gestionados y protegidos conforme a lo establecido en la LOPDP.</p>
+                        <p class="text-xs text-gray-500 italic">*El débito se efectuará durante los primeros cinco días de cada mes.</p>
+                        <p class="text-xs font-bold text-gray-700">NO RECIBIMOS DINERO EN EFECTIVO.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenido de pestaña: Tarjeta de Crédito -->
+            <div id="tarjeta" class="tab-content">
+                <div class="space-y-6">
+                    <div>
+                        <label for="numero-tarjeta" class="block text-sm font-medium text-gray-700">Número de Tarjeta *</label>
+                        <input type="text" id="numero-tarjeta" name="numero-tarjeta" placeholder="1234 5678 9012 3456" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                    </div>
+                    
+                    <div>
+                        <label for="nombre-tarjeta" class="block text-sm font-medium text-gray-700">Nombre en la Tarjeta *</label>
+                        <input type="text" id="nombre-tarjeta" name="nombre-tarjeta" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="fecha-expiracion" class="block text-sm font-medium text-gray-700">Fecha de Expiración *</label>
+                            <input type="text" id="fecha-expiracion" name="fecha-expiracion" placeholder="MM/AA" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                        </div>
+                        <div>
+                            <label for="cvv" class="block text-sm font-medium text-gray-700">CVV *</label>
+                            <input type="text" id="cvv" name="cvv" placeholder="123" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Monto *</label>
+                        <div class="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                            <div class="flex items-center">
+                                <input id="monto-t-5" name="monto-tarjeta" type="radio" value="5" required class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <label for="monto-t-5" class="ml-2 block text-sm text-gray-700">$5</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="monto-t-10" name="monto-tarjeta" type="radio" value="10" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <label for="monto-t-10" class="ml-2 block text-sm text-gray-700">$10</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="monto-t-20" name="monto-tarjeta" type="radio" value="20" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <label for="monto-t-20" class="ml-2 block text-sm text-gray-700">$20</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="monto-t-30" name="monto-tarjeta" type="radio" value="30" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <label for="monto-t-30" class="ml-2 block text-sm text-gray-700">$30</label>
+                            </div>
+                        </div>
+                        <div class="mt-3 flex items-center">
+                            <input id="monto-t-otro" name="monto-tarjeta" type="radio" value="otro" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <label for="monto-t-otro" class="ml-2 block text-sm text-gray-700">Otro monto: $</label>
+                            <input type="number" id="monto-t-personalizado" name="monto-t-personalizado" disabled class="ml-2 w-24 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input id="pago-recurrente" name="pago-recurrente" type="checkbox" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                        <label for="pago-recurrente" class="ml-2 block text-sm text-gray-700">Hacer este pago recurrente cada mes</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenido de pestaña: Código QR -->
+            <div id="qr" class="tab-content">
+                <div class="text-center space-y-6">
+                    <div class="qr-code-placeholder">
+                        <span class="text-gray-500">Código QR de pago</span>
+                    </div>
+                    
+                    <div>
+                        <p class="text-sm text-gray-600">Escanea este código QR con tu aplicación de banca móvil para completar el pago.</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Monto *</label>
+                        <div class="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                            <div class="flex items-center">
+                                <input id="monto-q-5" name="monto-qr" type="radio" value="5" required class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <label for="monto-q-5" class="ml-2 block text-sm text-gray-700">$5</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="monto-q-10" name="monto-qr" type="radio" value="10" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <label for="monto-q-10" class="ml-2 block text-sm text-gray-700">$10</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="monto-q-20" name="monto-qr" type="radio" value="20" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <label for="monto-q-20" class="ml-2 block text-sm text-gray-700">$20</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="monto-q-30" name="monto-qr" type="radio" value="30" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <label for="monto-q-30" class="ml-2 block text-sm text-gray-700">$30</label>
+                            </div>
+                        </div>
+                        <div class="mt-3 flex items-center">
+                            <input id="monto-q-otro" name="monto-qr" type="radio" value="otro" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <label for="monto-q-otro" class="ml-2 block text-sm text-gray-700">Otro monto: $</label>
+                            <input type="number" id="monto-q-personalizado" name="monto-q-personalizado" disabled class="ml-2 w-24 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <p class="text-xs text-gray-500">Después de escanear el código QR, recibirás un correo de confirmación con los detalles de tu pago.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botones de acción -->
+            <div class="flex justify-end space-x-4">
+                <button type="button" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Cancelar
+                </button>
+                <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white btn-primary hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    Enviar Solicitud
+                </button>
+            </div>
+        </form>
+    </div>
+    <script src="load-navbar.js"></script>
+
+    <script>
+        // Funcionalidad de pestañas
+        document.querySelectorAll('[data-tab]').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Desactivar todas las pestañas
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Activar la pestaña seleccionada
+                this.classList.add('active');
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Habilitar campos de monto personalizado
+        function setupMontoPersonalizado(radioId, inputId) {
+            document.getElementById(radioId).addEventListener('change', function() {
+                const input = document.getElementById(inputId);
+                input.disabled = !this.checked;
+                if (this.checked) {
+                    input.focus();
+                    input.required = true;
+                } else {
+                    input.required = false;
+                }
+            });
+        }
+        
+        // Configurar montos personalizados para cada pestaña
+        setupMontoPersonalizado('monto-otro', 'monto-personalizado');
+        setupMontoPersonalizado('monto-t-otro', 'monto-t-personalizado');
+        setupMontoPersonalizado('monto-q-otro', 'monto-q-personalizado');
+        
+        // Desmarcar "Otro monto" si se selecciona un monto fijo
+        function setupRadioGroups() {
+            const radioGroups = [
+                { name: 'monto', otherId: 'monto-otro', inputId: 'monto-personalizado' },
+                { name: 'monto-tarjeta', otherId: 'monto-t-otro', inputId: 'monto-t-personalizado' },
+                { name: 'monto-qr', otherId: 'monto-q-otro', inputId: 'monto-q-personalizado' }
+            ];
+            
+            radioGroups.forEach(group => {
+                document.querySelectorAll(`input[name="${group.name}"]:not(#${group.otherId})`).forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        if (this.checked) {
+                            document.getElementById(group.inputId).disabled = true;
+                            document.getElementById(group.inputId).required = false;
+                        }
+                    });
+                });
+            });
+        }
+        
+        setupRadioGroups();
+    </script>
+</body>
+</html>
