@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Perfil - Alimentos Quito</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+    <div id="navbar-container"></div>
+<div>
+
+
+  <!-- Código de verificación -->
+  <div id="verificacion" class="min-h-screen flex flex-col justify-center items-center p-6">
+    <h1 class="text-2xl font-bold mb-4">Verifica tu correo</h1>
+    <p class="mb-4 text-center">Te hemos enviado un código de verificación a tu correo electrónico. Por favor, ingrésalo
+      abajo para continuar.</p>
+    <input id="codigo" type="text" placeholder="Código de verificación"
+      class="border rounded-md px-4 py-2 w-64 mb-4 text-center" />
+    <button onclick="verificarCodigo()"
+      class="bg-[#2D3576] text-white px-6 py-2 rounded-md hover:bg-[#1c224d]">Verificar</button>
+  </div>
+
+  <!-- Página de perfil -->
+  <div id="perfil" class="hidden p-6 max-w-4xl mx-auto space-y-10">
+    <h2 class="text-3xl font-bold text-center">Mi Perfil</h2>
+
+    <!-- Mis Donaciones -->
+    <!-- Mis Donaciones -->
+    <section class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold mb-4">Mis Donaciones</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full border-collapse border border-gray-200">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="border border-gray-300 px-4 py-2 text-left">ID Donación</th>
+              <th class="border border-gray-300 px-4 py-2 text-left">ID Transacción</th>
+              <th class="border border-gray-300 px-4 py-2 text-left">Origen</th>
+              <th class="border border-gray-300 px-4 py-2 text-left">Monto</th>
+              <th class="border border-gray-300 px-4 py-2 text-left">Fecha</th>
+              <th class="border border-gray-300 px-4 py-2 text-left">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">D001</td>
+              <td class="border border-gray-300 px-4 py-2">T12345</td>
+              <td class="border border-gray-300 px-4 py-2">Plux</td>
+              <td class="border border-gray-300 px-4 py-2 text-green-600 font-bold">15 $</td>
+              <td class="border border-gray-300 px-4 py-2">10 mayo 2025</td>
+              <td class="border border-gray-300 px-4 py-2">
+                <button class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700">Ver Logs</button>
+              </td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="border border-gray-300 px-4 py-2">D002</td>
+              <td class="border border-gray-300 px-4 py-2">T67890</td>
+              <td class="border border-gray-300 px-4 py-2">PayPal</td>
+              <td class="border border-gray-300 px-4 py-2 text-green-600 font-bold">20 $</td>
+              <td class="border border-gray-300 px-4 py-2">10 abril 2025</td>
+              <td class="border border-gray-300 px-4 py-2">
+                <button class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700">Ver Logs</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2">D003</td>
+              <td class="border border-gray-300 px-4 py-2">T11223</td>
+              <td class="border border-gray-300 px-4 py-2">Débito Bancario</td>
+              <td class="border border-gray-300 px-4 py-2 text-green-600 font-bold">10 $</td>
+              <td class="border border-gray-300 px-4 py-2">10 marzo 2025</td>
+              <td class="border border-gray-300 px-4 py-2">
+                <button class="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700">Ver Logs</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Mis Suscripciones -->
+    <section class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold mb-4">Mis Suscripciones</h3>
+      <div class="space-y-4">
+      <div class="border p-4 rounded-md">
+        <p>📅 Próximo cobro: 10 junio 2025</p>
+        <p>💰 Monto mensual: 15 $</p>
+        <p>💳 Tarjeta: **** **** **** 1234</p>
+        <button class="mt-2 text-red-600 underline">Cancelar suscripción</button>
+      </div>
+      </div>
+    </section>
+
+    <!-- Débitos Bancarios -->
+    <section class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold mb-4">Mis Débitos Bancarios</h3>
+      <div class="space-y-4">
+        <div class="border p-4 rounded-md">
+          <p>🏦 Banco Pichincha</p>
+          <a href="#" class="text-blue-600 underline">Descargar contrato</a><br />
+          <button class="mt-2 text-red-600 underline">Cancelar débito</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+  <script>
+    function verificarCodigo() {
+      const codigo = document.getElementById('codigo').value;
+      if (codigo === "123") { // Simulación
+        document.getElementById('verificacion').classList.add('hidden');
+        document.getElementById('perfil').classList.remove('hidden');
+      } else {
+        alert("Código incorrecto. Intenta nuevamente.");
+      }
+    }
+  </script>
+   </script>
+   <script src="load-navbar.js"></script>
+</body>
+
+</html>
