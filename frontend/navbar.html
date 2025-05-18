@@ -9,11 +9,11 @@
 
             <!-- Menú Desktop -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="index.html" class="nav-link">Inicio</a>
-                <a href="donacion_recurrente.html" class="nav-link">Débito Recurrente</a>
-                <a href="pago_en_linea.html" class="nav-link">Pago en Línea</a>
+                <a href="index.html" class="nav-link block px-3 py-2">Inicio</a>
+                <a href="donacion_recurrente.html" class="nav-link block px-3 py-2">Débito Recurrente</a>
+                <a href="pago_en_linea.html" class="nav-link block px-3 py-2">Pago en Línea</a>
 
-                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="dashboard.html" class="nav-link block px-3 py-2">Dashboard</a>
             </div>
 
             <!-- Botón Mobile -->
@@ -28,24 +28,12 @@
         <div class="md:hidden" x-show="isOpen" @click.away="isOpen = false">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="index.html" class="nav-link block px-3 py-2">Inicio</a>
+                <a href="donacion_recurrente.html" class="nav-link block px-3 py-2">Débito
+                    Recurrente</a>
+                <a href="pago_en_linea.html" class="nav-link block px-3 py-2">Pago
+                    en Línea</a>
 
-                <div class="relative">
-                    <button @click="dropdownOpen = !dropdownOpen"
-                        class="nav-link w-full flex justify-between items-center px-3 py-2">
-                        Donaciones
-                        <svg class="h-4 w-4" :class="{ 'transform rotate-180': dropdownOpen }" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
 
-                    <div x-show="dropdownOpen" class="pl-4">
-                        <a href="donacion_recurrente.html"
-                            class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50">Débito Recurrente</a>
-                        <a href="pago_en_linea.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50">Pago
-                            en Línea</a>
-                    </div>
-                </div>
 
                 <a href="dashboard.html" class="nav-link block px-3 py-2">Dashboard</a>
             </div>
