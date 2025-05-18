@@ -27,7 +27,7 @@
           class="border border-[#E1783C] text-[#E1783C] rounded-lg py-2 text-center hover:bg-[#E1783C] hover:text-white">25
           $</button>
         <button class="border border-[#E1783C] bg-[#2D3576] text-white rounded-lg py-2 text-center font-bold">50
-          $<br><span class="text-green-400 text-xs">💚 SUGERIDO</span></button>
+          $<br>💚 SUGERIDO</button>
         <button
           class="border border-[#E1783C] text-[#E1783C] rounded-lg py-2 text-center hover:bg-[#E1783C] hover:text-white">100
           $</button>
@@ -232,6 +232,44 @@
 
 
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Seleccionar elementos
+      const amountInput = document.getElementById('amount');
+      const buttons = document.querySelectorAll('button[class*="border-[#E1783C]"]');
+
+      // Función para manejar la selección de botones
+      function handleButtonClick(event) {
+        // Remover estilo activo de todos los botones
+        buttons.forEach(btn => {
+          btn.classList.remove('bg-[#2D3576]', 'text-white');
+          btn.classList.add('text-[#E1783C]', 'hover:bg-[#E1783C]', 'hover:text-white');
+        });
+
+        // Añadir estilo al botón seleccionado
+        event.target.classList.remove('text-[#E1783C]', 'hover:bg-[#E1783C]', 'hover:text-white');
+        event.target.classList.add('bg-[#2D3576]', 'text-white');
+
+        // Extraer valor numérico del texto del botón (elimina "$" y espacios)
+        const amount = event.target.innerText.replace(/[^\d]/g, '');
+        amountInput.value = amount;
+      }
+
+      // Añadir evento click a todos los botones
+      buttons.forEach(button => {
+        button.addEventListener('click', handleButtonClick);
+      });
+
+      // Manejar entrada manual
+      amountInput.addEventListener('input', () => {
+        // Remover estilo activo de todos los botones al editar manualmente
+        buttons.forEach(btn => {
+          btn.classList.remove('bg-[#2D3576]', 'text-white');
+          btn.classList.add('text-[#E1783C]', 'hover:bg-[#E1783C]', 'hover:text-white');
+        });
+      });
+    });
+
+
     const form = document.getElementById('donation-form');
 
     form.addEventListener('submit', function (e) {
