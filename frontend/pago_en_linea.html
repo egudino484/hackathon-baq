@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donación</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body  class="bg-[url('https://www.baq.ec/wp-content/uploads/2025/05/TU-DONACION-SALVA-VIDAS-wb.webp')] bg-cover bg-center text-gray-800">
+  <div class="max-w-6xl mx-auto p-6 mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Sección de donación -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+    
+
+      <h3 class="font-semibold mb-2 text-gray-800">Indica el donativo</h3>
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button class="border border-[#E1783C] text-[#E1783C] rounded-lg py-2 text-center hover:bg-[#E1783C] hover:text-white">25 $</button>
+        <button class="border border-[#E1783C] bg-[#2D3576] text-white rounded-lg py-2 text-center font-bold">50 $<br><span class="text-green-400 text-xs">💚 SUGERIDO</span></button>
+        <button class="border border-[#E1783C] text-[#E1783C] rounded-lg py-2 text-center hover:bg-[#E1783C] hover:text-white">100 $</button>
+        <button class="border border-[#E1783C] text-[#E1783C] rounded-lg py-2 text-center hover:bg-[#E1783C] hover:text-white">150 $</button>
+        <button class="border border-[#E1783C] text-[#E1783C] rounded-lg py-2 text-center hover:bg-[#E1783C] hover:text-white">200 $</button>
+        <button class="border border-[#E1783C] text-[#E1783C] rounded-lg py-2 text-center hover:bg-[#E1783C] hover:text-white">500 $</button>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-1 text-gray-700" for="amount">Otro monto ($ USD)</label>
+        <input id="amount" type="number" placeholder="50.00" class="w-full border rounded-md px-4 py-2 text-black" />
+      </div>
+
+      <div class="mb-4">
+        <div class="flex gap-6">
+          <label class="flex items-center gap-2">
+            <h3 class="font-semibold mb-2 text-gray-800">Frecuencia del donativo</h3>
+          </label>
+          <label class="flex items-center gap-2">
+            <input type="radio" name="frequency" value="one-time" checked class="accent-green-600" />
+            Único
+          </label>
+          <label class="flex items-center gap-2">
+            <input type="radio" name="frequency" value="monthly" class="accent-green-600" />
+            Mensual (recurrente)
+          </label>
+        </div>
+      </div>
+
+      <form id="donation-form" class="space-y-4">
+        <div class="flex gap-4">
+          <input id="email" type="email" placeholder="Dirección de email" class="w-full border rounded-md px-4 py-2 text-black" />
+        </div>
+        <div class="flex gap-4">
+          <input id="firstName" type="text" placeholder="Nombre" class="w-full border rounded-md px-4 py-2 text-black" />
+          <input id="lastName" type="text" placeholder="Apellidos" class="w-full border rounded-md px-4 py-2 text-black" />
+        </div>
+        <label class="flex items-center">
+          <input type="checkbox" class="mr-2 accent-green-600" />
+          Quiero que mi donación sea anónima
+        </label>
+        <div class="flex gap-4">
+          <input type="text" placeholder="Número de tarjeta" class="w-full border rounded-md px-4 py-2 text-black" />
+        </div>
+        <div class="flex gap-4">
+          <input type="text" placeholder="MM / AA" class="w-full border rounded-md px-4 py-2 text-black" />
+          <input type="text" placeholder="CVV" class="w-full border rounded-md px-4 py-2 text-black" />
+        </div>
+        <div class="flex gap-4">
+          <input type="text" placeholder="Nombre que figura en la tarjeta" class="w-full border rounded-md px-4 py-2 text-black" />
+        </div>
+        <div class="flex gap-4">
+          <select class="w-full border rounded-md px-4 py-2 text-black">
+            <option value="Ecuador">Ecuador</option>
+            <option value="Colombia">Colombia</option>
+            <option value="México">México</option>
+          </select>
+          <input type="text" placeholder="Código postal" class="w-full border rounded-md px-4 py-2 border-red-500 text-black" />
+        </div>
+        <label class="flex items-center">
+          <input type="checkbox" class="mr-2 accent-green-600" />
+          Guardar tarjeta para futuros donativos
+        </label>
+        
+        <button type="submit" class="w-full bg-[#2D3576] hover:bg-[#1c224d] text-white font-semibold py-2 rounded-md mt-4">Donar ahora</button>
+      </form>
+    </div>
+
+    <!-- Sección de donaciones recientes -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <div class="flex items-center mb-6">
+        <img src="https://firebasestorage.googleapis.com/v0/b/test-banco-alimentos.firebasestorage.app/o/images%2Fbanco_alimentos.jpeg?alt=media&token=ae08d5bf-70ed-40cd-8909-25cec82415b6" alt="Proyecto" class="rounded-lg w-24 h-24 object-cover mr-4" />
+        <div>
+          <p class="text-sm text-gray-600">Gracias por ayudar a cambiar vidas</p>
+          <h2 class="text-lg font-semibold text-gray-800">Con tu donación, miles de personas pueden comer hoy</h2>
+          <p class="text-sm text-gray-700">Cada aporte brinda esperanza y alimento a familias que lo necesitan. ¡Tu ayuda hace la diferencia!</p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <button class="bg-[#E1783C] text-white font-semibold py-2 px-4 rounded-full">Compartir</button>
+      </div>
+      <h3 class="font-semibold mt-6 mb-2 text-gray-800">Donaciones recientes</h3>
+
+      <div class="mt-6">
+        <ul class="space-y-4">
+          <li class="flex items-center">
+            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">🤲</div>
+            <div>
+              <p class="font-medium">Jose Andrade <span class="text-sm text-gray-600">· 6 $ · 4 hrs</span></p>
+            </div>
+          </li>
+          <li class="flex items-center">
+            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">🤲</div>
+            <div>
+              <p class="font-medium">Daniela Proano <span class="text-sm text-gray-600">· 15 $ · 2 d</span></p>
+            </div>
+          </li>
+          <li class="flex items-center">
+            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">🤲</div>
+            <div>
+              <p class="font-medium">Anónimo <span class="text-sm text-gray-600">· 5 $ · 4 d</span></p>
+            </div>
+          </li>
+          <li class="flex items-center">
+            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">🤲</div>
+            <div>
+              <p class="font-medium">Anónimo <span class="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded ml-2">MENSUALMENTE</span> <span class="text-sm text-gray-600">· 20 $ · 7 d</span></p>
+            </div>
+          </li>
+          <li class="flex items-center">
+            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">🤲</div>
+            <div>
+              <p class="font-medium">Lissette Baña <span class="text-sm text-gray-600">· 15 $ · 10 d</span></p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('donation-form');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert("¡Gracias por tu donación!");
+      form.reset();
+    });
+  </script>
+</body>
+</html>

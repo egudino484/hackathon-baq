@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Donaciones</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 p-6 text-gray-800">
+
+  <h1 class="text-3xl font-bold mb-8">Dashboard · Banco de Alimentos</h1>
+
+  <!-- Métricas -->
+  <div class="grid md:grid-cols-3 gap-6 mb-10">
+    <div class="bg-white p-5 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-2">Total Recaudado</h2>
+      <p class="text-3xl text-green-600 font-bold">€6,200</p>
+    </div>
+    <div class="bg-white p-5 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-2">Número de Donantes</h2>
+      <p class="text-3xl text-blue-600 font-bold">128</p>
+    </div>
+    <div class="bg-white p-5 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-2">Ticket Promedio</h2>
+      <p class="text-3xl text-purple-600 font-bold">€48.43</p>
+    </div>
+  </div>
+
+  <!-- Gráfico mensual -->
+  <div class="bg-white p-6 rounded-lg shadow mb-10">
+    <h2 class="text-xl font-semibold mb-4">Donaciones Mensuales (€)</h2>
+    <canvas id="donacionesChart" height="120"></canvas>
+  </div>
+
+  <!-- Top donantes -->
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h2 class="text-xl font-semibold mb-4">Top Donantes</h2>
+    <ul class="divide-y">
+      <li class="flex justify-between py-3"><span>Ana Pérez</span><span class="text-green-600 font-bold">€1,000</span></li>
+      <li class="flex justify-between py-3"><span>Luis Gómez</span><span class="text-green-600 font-bold">€850</span></li>
+      <li class="flex justify-between py-3"><span>Claudia Ruiz</span><span class="text-green-600 font-bold">€780</span></li>
+    </ul>
+  </div>
+
+  <!-- Chart.js Script -->
+  <script>
+    const ctx = document.getElementById('donacionesChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Ene', 'Feb', 'Mar', 'Abr'],
+        datasets: [{
+          label: 'Recaudado',
+          data: [1200, 1800, 1000, 2200],
+          borderColor: '#3b82f6',
+          backgroundColor: 'rgba(59, 130, 246, 0.2)',
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
