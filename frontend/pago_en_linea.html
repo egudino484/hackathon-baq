@@ -103,6 +103,18 @@
           Guardar tarjeta para futuros donativos
         </label>
 
+        <!-- ... otros elementos del formulario ... -->
+
+<div class="mt-4">
+  <button 
+    type="button" 
+    onclick="cargarDatosDemo()" 
+    class="w-full bg-[#E1783C] hover:bg-[#c7632e] text-white font-semibold py-2 rounded-md transition-colors"
+  >
+    <span class="mr-2">🕹️</span> Cargar datos demo
+  </button>
+</div>
+
         <button type="submit"
           class="w-full bg-[#2D3576] hover:bg-[#1c224d] text-white font-semibold py-2 rounded-md mt-4">Donar
           ahora</button>
@@ -268,6 +280,48 @@
         });
       });
     });
+
+    //Cargar datos de demostracion
+    function cargarDatosDemo() {
+      // Seleccionar el botón de $50 (SUGERIDO)
+      const boton50 = document.querySelector('button:has(> span.text-green-400)');
+      if (boton50) boton50.click();
+
+      // Datos personales
+      document.getElementById('email').value = 'juan.perez@ejemplo.com';
+      document.getElementById('firstName').value = 'Juan';
+      document.getElementById('lastName').value = 'Pérez García';
+
+      // Datos de tarjeta (usando datos de prueba estándar)
+      document.querySelector('input[placeholder="Número de tarjeta"]').value = '4242 4242 4242 4242';
+      document.querySelector('input[placeholder="MM / AA"]').value = '12/30';
+      document.querySelector('input[placeholder="CVV"]').value = '123';
+      document.querySelector('input[placeholder="Nombre que figura en la tarjeta"]').value = 'JUAN PEREZ';
+
+      // País y código postal
+      document.querySelector('select').value = 'Ecuador';
+      document.querySelector('input[placeholder="Código postal"]').value = '170135';
+
+      // Configurar frecuencia mensual
+      document.querySelector('input[value="monthly"]').click();
+
+      // Desmarcar donación anónima
+      document.querySelector('input[type="checkbox"]').checked = false;
+
+      // Si existe el campo "Otro monto", establecer valor demo
+      const amountInput = document.getElementById('amount');
+      if (amountInput && !amountInput.value) {
+        amountInput.value = '50.00';
+      }
+
+      // Configurar guardar tarjeta
+      document.querySelectorAll('input[type="checkbox"]')[1].checked = true;
+
+      // Simular el evento de input para actualizar cualquier validación
+      const event = new Event('input', { bubbles: true });
+      amountInput.dispatchEvent(event);
+    }
+
 
 
     const form = document.getElementById('donation-form');
